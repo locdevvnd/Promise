@@ -1,0 +1,33 @@
+<html>
+<body>
+
+<h2>JavaScript Promise</h2>
+
+<p id="demo"></p>
+
+<script>
+function display(oke) {
+  document.getElementById("demo").innerHTML = oke;
+}
+
+let promise = new Promise(function(resolve, reject) { // trang thai pending voi ket qua dang la undefined
+  let req = new XMLHttpRequest();
+  req.open('GET', "https://www.24h.com.vn/");
+  req.onload = function() {
+    if (req.status == 200) {
+      resolve(req.response); //thanh cong thi status la fulfilled voi ket qua tra ve cai du lieu
+    } else {
+      reject("Link die"); // loi thi status la rejected voi ket qua link chet 
+    }
+  }; // khuc ni chua biet, moi biet status la fulfilled
+  req.send();
+});
+
+promise.then( //xu li ket qua tra ve
+  function(value) {display(value);},
+  function(error) {display(error);}
+);
+</script>
+
+</body>
+</html>
